@@ -11,6 +11,7 @@ export const useRemoteApp = (params: ImportRemoteOptions) => {
 
   const [component, setComponent] = useState<ReactNode>(cache[cacheKey])
   const [loading, setLoading] = useState(!cache[cacheKey])
+a  const [error, setError] = useState(false)
 
   useEffect(() => {
     if (cache[cacheKey]) {
@@ -21,12 +22,18 @@ export const useRemoteApp = (params: ImportRemoteOptions) => {
       .then((value: any) => {
         const lazy = React.lazy(async () => value)
         cache[cacheKey] = lazy
+
         setComponent(lazy)
+
+        console.log(__webpack_share_scopes__?.default)
+      })
+      .catch((err) => {
+        setError(err.message)
       })
       .finally(() => {
         setLoading(false)
       })
   }, [])
 
-  return { loading, component }
+  return { loading, component, error }
 }

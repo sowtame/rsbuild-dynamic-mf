@@ -1,13 +1,13 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
-import type { TableProps } from 'antd';
+import React from 'react'
+import { Space, Table, Tag, Button } from 'antd'
+import type { TableProps } from 'antd'
 
 interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  key: string
+  name: string
+  age: number
+  address: string
+  tags: string[]
 }
 
 const columns: TableProps<DataType>['columns'] = [
@@ -34,15 +34,15 @@ const columns: TableProps<DataType>['columns'] = [
     render: (_, { tags }) => (
       <>
         {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
+          let color = tag.length > 5 ? 'geekblue' : 'green'
           if (tag === 'fail') {
-            color = 'volcano';
+            color = 'volcano'
           }
           return (
             <Tag color={color} key={tag}>
               {tag.toUpperCase()}
             </Tag>
-          );
+          )
         })}
       </>
     ),
@@ -57,7 +57,7 @@ const columns: TableProps<DataType>['columns'] = [
       </Space>
     ),
   },
-];
+]
 
 const data: DataType[] = [
   {
@@ -81,8 +81,13 @@ const data: DataType[] = [
     address: 'Sydney No. 1 Lake Park',
     tags: ['cool', 'teacher'],
   },
-];
+]
 
-const Home: React.FC = () => <Table columns={columns} dataSource={data} />;
+const Home: React.FC = () => (
+  <>
+    <Table columns={columns} dataSource={data} />
+    <Button>click</Button>
+  </>
+)
 
-export default Home;
+export default Home

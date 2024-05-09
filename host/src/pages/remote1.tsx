@@ -1,7 +1,11 @@
 import { useRemoteApp } from '../hooks/use-remote-app'
 
 function Remote1() {
-  const { component: Button, loading } = useRemoteApp({
+  const {
+    component: Button,
+    loading,
+    error,
+  } = useRemoteApp({
     url: 'http://localhost:3001',
     scope: 'remote1',
     module: 'Button',
@@ -11,7 +15,8 @@ function Remote1() {
     <div>
       <h2>Remote1 Router</h2>
       {loading && <div>loading</div>}
-      {!loading && <Button />}
+      {error && <div>error loading {error}</div>}
+      {!loading && !error && <Button />}
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { defineConfig } from '@rsbuild/core'
 import { pluginReact } from '@rsbuild/plugin-react'
+import { dependencies } from './package.json'
 
 export default defineConfig({
   server: {
@@ -8,6 +9,24 @@ export default defineConfig({
   dev: {
     // It is necessary to configure assetPrefix, and in the production environment, you need to configure output.assetPrefix
     assetPrefix: 'http://localhost:3001',
+  },
+  tools: {
+    swc: {
+      jsc: {
+        experimental: {
+          plugins: [
+            [
+              '@swc/plugin-transform-imports',
+              {
+                antd: {
+                  transform: 'antd/es/{{ camelCase member }}',
+                },
+              },
+            ],
+          ],
+        },
+      },
+    },
   },
   moduleFederation: {
     options: {
@@ -22,6 +41,12 @@ export default defineConfig({
         },
         'react-dom': {
           singleton: true,
+        },
+        'react-router-dom': {
+          requiredVersion: dependencies['react-router-dom'],
+        },
+        'antd/': {
+          requiredVersion: dependencies['antd'],
         },
       },
       filename: 'remoteEntry.js',
