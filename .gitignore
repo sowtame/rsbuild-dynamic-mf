@@ -1,5 +1,9 @@
 node_modules/
 
+host/node_modules
+remote1/node_modules
+remote2/node_modules
+
 host/@mf-types
 remote1/@mf-types
 remote2/@mf-types
