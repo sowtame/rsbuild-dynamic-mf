@@ -1,25 +1,26 @@
-import { loadRemote, registerRemotes } from '@module-federation/enhanced/runtime'
-// import { importRemote } from '@module-federation/utilities'
-import React, { ReactNode } from 'react'
+import { importRemote, ImportRemoteOptions } from '@module-federation/utilities'
+import React, { ReactNode, useMemo } from 'react'
 import { useEffect, useState } from 'react'
 
-export const useRemoteApp = () => {
-  const [component, setComponent] = useState<ReactNode>(null)
-  const [loading, setLoading] = useState(true)
+const cache: any = {}
+
+export const useRemoteApp = (params: ImportRemoteOptions) => {
+  const cacheKey = useMemo(() => {
+    return `${params.url}/${params.scope}/${params.module}`
+  }, [])
+
+  const [component, setComponent] = useState<ReactNode>(cache[cacheKey])
+  const [loading, setLoading] = useState(!cache[cacheKey])
 
   useEffect(() => {
-    registerRemotes([
-      {
-        name: 'remote1',
-        entry: 'http://localhost:3001/remoteEntry.js',
-      },
-    ])
+    if (cache[cacheKey]) {
+      return
+    }
 
-    loadRemote('remote1/Button')
+    importRemote(params)
       .then((value: any) => {
-        console.log(value.default)
-
         const lazy = React.lazy(async () => value)
+        cache[cacheKey] = lazy
         setComponent(lazy)
       })
       .finally(() => {

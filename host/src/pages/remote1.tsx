@@ -1,11 +1,11 @@
-// import Button from 'remote1/button';
-
 import { useRemoteApp } from '../hooks/use-remote-app'
 
 function Remote1() {
-  const { component: Button, loading } = useRemoteApp()
-  console.log('🚀 ~ Remote1 ~ loading:', loading)
-  console.log('🚀 ~ Remote1 ~ Button:', Button)
+  const { component: Button, loading } = useRemoteApp({
+    url: 'http://localhost:3001',
+    scope: 'remote1',
+    module: 'Button',
+  })
 
   return (
     <div>

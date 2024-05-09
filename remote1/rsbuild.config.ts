@@ -16,11 +16,14 @@ export default defineConfig({
         './Button': './src/Button',
         './app': './src/app.tsx',
       },
-      shared: [
-        'react',
-        'react-dom',
-        // 'antd'
-      ],
+      shared: {
+        react: {
+          singleton: true,
+        },
+        'react-dom': {
+          singleton: true,
+        },
+      },
       filename: 'remoteEntry.js',
     },
   },
