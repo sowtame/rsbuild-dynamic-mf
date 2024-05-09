@@ -11,7 +11,7 @@ export const useRemoteApp = (params: ImportRemoteOptions) => {
 
   const [component, setComponent] = useState<ReactNode>(cache[cacheKey])
   const [loading, setLoading] = useState(!cache[cacheKey])
-a  const [error, setError] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     if (cache[cacheKey]) {
