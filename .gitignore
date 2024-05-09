@@ -1,0 +1,9 @@
+node_modules/
+
+host/@mf-types
+remote1/@mf-types
+remote2/@mf-types
+
+host/dist
+remote1/dist
+remote2/dist
